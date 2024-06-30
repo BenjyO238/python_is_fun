@@ -10,20 +10,47 @@
     <div class="container">
         <h1>Weather App</h1>
         <form method="POST">
-            <input type="text" name="city" placeholder="Enter city name" required>
+            {% for i in range(1, 6) %}
+                <div class="city-input">
+                    <input type="text" name="city{{ i }}" placeholder="Enter city name">
+                    <input type="text" name="state{{ i }}" placeholder="Enter state (optional)">
+                </div>
+            {% endfor %}
             <button type="submit">Get Weather</button>
         </form>
         {% if weather_data %}
-            {% if weather_data.error %}
-                <p class="error">{{ weather_data.error }}</p>
-            {% else %}
-                <div class="weather-info">
-                    <h2>{{ weather_data.city }}</h2>
-                    <img src="http://openweathermap.org/img/wn/{{ weather_data.icon }}@2x.png" alt="Weather icon">
-                    <p>{{ weather_data.temperature }}°C</p>
-                    <p>{{ weather_data.description }}</p>
-                </div>
-            {% endif %}
+            <table class="weather-table">
+                <thead>
+                    <tr>
+                        <th>City</th>
+                        <th>Current Weather</th>
+                        <th colspan="5">Forecast</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in weather_data %}
+                        <tr>
+                            <td>{{ data.current.city }}</td>
+                            <td>
+                                <div class="current-weather">
+                                    <img src="http://openweathermap.org/img/wn/{{ data.current.icon }}@2x.png" alt="Weather icon">
+                                    <p>{{ data.current.temperature }}°F</p>
+                                    <p>{{ data.current.description }}</p>
+                                </div>
+                            </td>
+                            {% for forecast in data.forecast %}
+                            <td>
+                                <div class="forecast-entry">
+                                    <p>{{ forecast.datetime }}</p>
+                                    <img src="http://openweathermap.org/img/wn/{{ forecast.icon }}@2x.png" alt="Weather icon">
+                                    <p>{{ forecast.temperature }}°F - {{ forecast.description }}</p>
+                                </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% endif %}
     </div>
 </body>

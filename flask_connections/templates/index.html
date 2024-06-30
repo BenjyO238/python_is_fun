@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYT Connections Game Clone</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>NYT Connections Game Clone</h1>
+    <div>
+        <h2>Correct Groups:</h2>
+        <div id="correct-groups" class="correct-groups"></div>
+    </div>
+    <div>
+        <h2>Word Choices:</h2>
+        <div class="word-list" id="word-list"></div>
+    </div>
+    <div>
+        <p>Attempts left: <span id="attempts"></span></p>
+    </div>
+    <div id="game-end-message" class="game-end-message"></div>
+    <div class="buttons">
+        <button id="submit-button" onclick="submitSelection()" disabled>Submit</button>
+        <button id="reset-button" onclick="resetGame()">Play Again</button>
+    </div>
+
+    <script>
+        let selectedWords = [];
+        let words = {{ words | tojson }};
+        let attempts = {{ attempts }};
+        let correctlyGuessedGroups = {{ correctly_guessed_groups | tojson }};
+        let gameEnded = false;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            updateWordList();
+            updateCorrectGroups();
+            document.getElementById('attempts').textContent = attempts;
+            document.getElementById('reset-button').style.display = 'none';
+        });
+
+        function updateWordList() {
+            const wordList = document.getElementById('word-list');
+            wordList.innerHTML = '';
+            for (let i = 0; i < 4; i++) {
+                const row = document.createElement('div');
+                row.className = 'word-row';
+                for (let j = 0; j < 4; j++) {
+                    const index = i * 4 + j;
+                    const wordItem = document.createElement('div');
+                    wordItem.textContent = words[index];
+                    wordItem.className = 'word-item';
+                    wordItem.onclick = () => selectWord(index);
+                    row.appendChild(wordItem);
+                }
+                wordList.appendChild(row);
+            }
+        }
+
+        function updateCorrectGroups() {
+            const correctGroupsDiv = document.getElementById('correct-groups');
+            correctGroupsDiv.innerHTML = '';
+            correctlyGuessedGroups.forEach(group => {
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'correct-group';
+                groupDiv.textContent = group.join(', ');
+                correctGroupsDiv.appendChild(groupDiv);
+            });
+        }
+
+        function selectWord(index) {
+            if (selectedWords.includes(index)) {
+                selectedWords = selectedWords.filter(i => i !== index);
+            } else {
+                if (selectedWords.length < 4) {
+                    selectedWords.push(index);
+                }
+            }
+            document.querySelectorAll('.word-item').forEach((item, idx) => {
+                item.classList.toggle('selected', selectedWords.includes(idx));
+            });
+            document.getElementById('submit-button').disabled = selectedWords.length !== 4;
+        }
+
+        function submitSelection() {
+            fetch('/select', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ selected_indices: selectedWords })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.game_ended) {
+                    document.getElementById('game-end-message').textContent = data.game_end_message;
+                    document.getElementById('reset-button').style.display = 'block';
+                }
+                words = data.words;
+                attempts = data.attempts;
+                correctlyGuessedGroups = data.correctly_guessed_groups;
+                selectedWords = [];
+                updateWordList();
+                updateCorrectGroups();
+                document.getElementById('attempts').textContent = attempts;
+                document.getElementById('submit-button').disabled = true;
+            });
+        }
+
+        function resetGame() {
+            fetch('/reset', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                words = data.words;
+                attempts = data.attempts;
+                correctlyGuessedGroups = data.correctly_guessed_groups;
+                selectedWords = [];
+                gameEnded = false;
+                document.getElementById('game-end-message').textContent = '';
+                updateWordList();
+                updateCorrectGroups();
+                document.getElementById('attempts').textContent = attempts;
+                document.getElementById('submit-button').disabled = true;
+                document.getElementById('reset-button').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

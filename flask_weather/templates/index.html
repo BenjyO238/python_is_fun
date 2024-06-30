@@ -29,20 +29,18 @@
                 </thead>
                 <tbody>
                     {% for data in weather_data %}
-                        <tr class="weather-row">
-                            <td class="weather-cell">
-                                <strong>{{ data.current.city }}</strong>
-                            </td>
-                            <td class="weather-cell">
-                                <div class="current-weather">
+                        <tr>
+                            <td><strong>{{ data.current.city }}</strong></td>
+                            <td>
+                                <div>
                                     <img src="http://openweathermap.org/img/wn/{{ data.current.icon }}@2x.png" alt="Weather icon">
                                     <p>{{ data.current.temperature }}°F</p>
                                     <p>{{ data.current.description }}</p>
                                 </div>
                             </td>
                             {% for forecast in data.forecast %}
-                            <td class="weather-cell">
-                                <div class="forecast-entry">
+                            <td>
+                                <div>
                                     <p>{{ forecast.datetime }}</p>
                                     <img src="http://openweathermap.org/img/wn/{{ forecast.icon }}@2x.png" alt="Weather icon">
                                     <p>{{ forecast.temperature }}°F - {{ forecast.description }}</p>

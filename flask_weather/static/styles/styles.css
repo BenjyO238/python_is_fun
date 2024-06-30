@@ -58,7 +58,7 @@ button:hover {
 }
 
 .weather-table th, .weather-table td {
-    border: 1px solid #ccc;
+    border: 1px solid black; /* Ensure table cells have a border */
     padding: 0.5rem;
     text-align: left;
     vertical-align: top;
@@ -68,24 +68,8 @@ button:hover {
     background-color: #f4f4f4;
 }
 
-.weather-row {
-    border: 1px solid #ccc;
-}
-
-.weather-cell {
-    border: 1px solid #ccc;
-}
-
 .current-weather, .forecast-entry {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.weather-row strong {
-    font-weight: bold;
-}
-
-.error {
-    color: red;
 }

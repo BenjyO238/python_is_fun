@@ -1,25 +1,26 @@
 matrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-print('board \n', matrix)
 
 playerOne = 1
 playerTwo = 2
 
-
 def print_matrix():
-    print(matrix)
     for i in range(3):
         for j in range(3):
-            current = "_"
+            current = " "
             if matrix[i][j] == playerOne:
                 current = "X"
             elif matrix[i][j] == playerTwo:
                 current = "O"
-            print(current, end="\t")
+            print(f" {current} ", end="")
+            if j < 2:
+                print(" -", end="")
         print("")
-
+        if i < 2:
+            print("----+----+----")
+    print()
 
 def validate_input(x, y):
-    if x > 3 or y > 3:
+    if x >= 3 or y >= 3 or x < 0 or y < 0:
         print("\nOut of bound! Enter again...\n")
         return False
     elif matrix[x][y] != 0:
@@ -27,59 +28,43 @@ def validate_input(x, y):
         return False
     return True
 
-
 def get_input(currentPlayer):
     if currentPlayer == playerOne:
         print("\nPlayer One's Turn")
     else:
         print("\nPlayer Two's Turn")
-    failed = 1
+    failed = True
     while failed:
         try:
-            x = int(input("Enter the x coordinate:"))
-            y = int(input("Enter the y coordinate:"))
+            x = int(input("Enter the x coordinate (0-2): "))
+            y = int(input("Enter the y coordinate (0-2): "))
             if validate_input(x, y):
                 matrix[x][y] = currentPlayer
-                failed = 0
+                failed = False
                 print_matrix()
-        except:
-            print("Error occured! Try again..")
-
+        except ValueError:
+            print("Error occurred! Enter valid integers between 0 and 2.")
 
 def check_rows():
-    # print("Checking rows")
-    result = 0
-    for i in range(3):
-        if matrix[i][0] == matrix[i][1] and matrix[i][1] == matrix[i][2]:
-            result = matrix[i][0]
-            if result != 0:
-                break
-    return result
-
+    for row in matrix:
+        if row[0] == row[1] == row[2] and row[0] != 0:
+            return row[0]
+    return 0
 
 def check_columns():
-    # print("Checking cols")
-    result = 0
-    for i in range(3):
-        if matrix[0][i] == matrix[1][i] and matrix[1][i] == matrix[2][i]:
-            result = matrix[0][i]
-            if result != 0:
-                break
-    return result
-
+    for col in range(3):
+        if matrix[0][col] == matrix[1][col] == matrix[2][col] and matrix[0][col] != 0:
+            return matrix[0][col]
+    return 0
 
 def check_diagonals():
-    # print("Checking diagonals")
-    result = 0
-    if matrix[0][0] == matrix[1][1] and matrix[1][1] == matrix[2][2]:
-        result = matrix[0][0]
-    elif matrix[0][2] == matrix[1][1] and matrix[1][1] == matrix[2][0]:
-        result = matrix[0][2]
-    return result
-
+    if matrix[0][0] == matrix[1][1] == matrix[2][2] and matrix[0][0] != 0:
+        return matrix[0][0]
+    if matrix[0][2] == matrix[1][1] == matrix[2][0] and matrix[0][2] != 0:
+        return matrix[0][2]
+    return 0
 
 def check_winner():
-    result = 0
     result = check_rows()
     if result == 0:
         result = check_columns()
@@ -87,25 +72,22 @@ def check_winner():
         result = check_diagonals()
     return result
 
-
 def main():
     result = 0
     i = 0
     while result == 0 and i < 9:
-        if (i % 2 == 0):
+        if i % 2 == 0:
             get_input(playerOne)
         else:
             get_input(playerTwo)
         result = check_winner()
-        i = i + 1
-        # print("Current count", i ,result == 0 and i < 9, "Result = ", result)
+        i += 1
 
     if result == 1:
-        print("Player one is the winner")
+        print("Player One is the winner")
     elif result == 2:
-        print("Player two is the winner")
+        print("Player Two is the winner")
     else:
         print("Draw")
-
 
 main()

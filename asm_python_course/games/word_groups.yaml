@@ -1,0 +1,111 @@
+word_groups:
+  - words:
+      - "Golf"
+      - "Ball"
+      - "Par"
+      - "Club"
+      - "Hit"
+      - "Movie"
+      - "Song"
+      - "Run"
+      - "Cake"
+      - "Chocolate"
+      - "Candy"
+      - "Cookie"
+      - "Dog"
+      - "Cat"
+      - "Bird"
+      - "Fish"
+    correct_groups:
+      - ["Golf", "Ball", "Par", "Club"]
+      - ["Hit", "Movie", "Song", "Run"]
+      - ["Cake", "Chocolate", "Candy", "Cookie"]
+      - ["Dog", "Cat", "Bird", "Fish"]
+  - words:
+      - "Apple"
+      - "Banana"
+      - "Cherry"
+      - "Date"
+      - "Lion"
+      - "Tiger"
+      - "Leopard"
+      - "Cheetah"
+      - "Red"
+      - "Blue"
+      - "Green"
+      - "Yellow"
+      - "Pen"
+      - "Pencil"
+      - "Paper"
+      - "Eraser"
+    correct_groups:
+      - ["Apple", "Banana", "Cherry", "Date"]
+      - ["Lion", "Tiger", "Leopard", "Cheetah"]
+      - ["Red", "Blue", "Green", "Yellow"]
+      - ["Pen", "Pencil", "Paper", "Eraser"]
+  - words:
+      - "Car"
+      - "Bus"
+      - "Train"
+      - "Bike"
+      - "Rose"
+      - "Tulip"
+      - "Lily"
+      - "Daisy"
+      - "Hat"
+      - "Coat"
+      - "Gloves"
+      - "Scarf"
+      - "Sun"
+      - "Moon"
+      - "Star"
+      - "Planet"
+    correct_groups:
+      - ["Car", "Bus", "Train", "Bike"]
+      - ["Rose", "Tulip", "Lily", "Daisy"]
+      - ["Hat", "Coat", "Gloves", "Scarf"]
+      - ["Sun", "Moon", "Star", "Planet"]
+  - words:
+      - "Bread"
+      - "Milk"
+      - "Cheese"
+      - "Butter"
+      - "Circle"
+      - "Square"
+      - "Triangle"
+      - "Rectangle"
+      - "Table"
+      - "Chair"
+      - "Sofa"
+      - "Desk"
+      - "Run"
+      - "Jump"
+      - "Swim"
+      - "Dance"
+    correct_groups:
+      - ["Bread", "Milk", "Cheese", "Butter"]
+      - ["Circle", "Square", "Triangle", "Rectangle"]
+      - ["Table", "Chair", "Sofa", "Desk"]
+      - ["Run", "Jump", "Swim", "Dance"]
+  - words:
+      - "Spring"
+      - "Summer"
+      - "Autumn"
+      - "Winter"
+      - "Red"
+      - "Green"
+      - "Blue"
+      - "Yellow"
+      - "Dog"
+      - "Cat"
+      - "Bird"
+      - "Fish"
+      - "Pencil"
+      - "Pen"
+      - "Paper"
+      - "Eraser"
+    correct_groups:
+      - ["Spring", "Summer", "Autumn", "Winter"]
+      - ["Red", "Green", "Blue", "Yellow"]
+      - ["Dog", "Cat", "Bird", "Fish"]
+      - ["Pencil", "Pen", "Paper", "Eraser"]

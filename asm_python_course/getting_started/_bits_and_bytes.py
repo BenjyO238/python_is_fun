@@ -1,4 +1,4 @@
-# bytes and strings
+# bytes and strings: this is how computers store data.
 def string_to_bytes(text):
     byte_array = text.encode('utf-8')
     print(f"'{text}' as bytes: {byte_array}")

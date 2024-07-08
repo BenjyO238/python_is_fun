@@ -71,5 +71,35 @@ for i in range(50):
 turtle.done()
 
 ##################################################
+# Set up a bigger window and trace a star.
+screen = turtle.Screen()
+screen.setup(400, 400)  # Set the window size to 800x600 pixels
 
+t = turtle.Turtle()
+
+# Move the turtle to the center before drawing
+t.penup()
+t.goto(-100, -10)  # Adjust this value to move the star up or down
+t.pendown()
+
+
+def mystar(size, filled):
+  if filled == True:
+    t.begin_fill()
+  for x in range(1, 19):
+    t.forward(size)
+    if x % 2 == 0:
+      t.left(175)
+    else:
+      t.left(225)
+  if filled == True:
+    t.end_fill()
+
+
+t.color(0.9, 0.75, 0)
+mystar(50, True)
+t.color(0, 0, 0)
+mystar(50, False)
+
+turtle.done()
 

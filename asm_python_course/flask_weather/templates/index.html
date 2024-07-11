@@ -4,55 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}">
 </head>
 <body>
     <div class="container">
         <h1>Weather App</h1>
-        <form method="POST">
+        <form id="weather-form" method="POST">
             {% for i in range(1, 6) %}
-                <div class="city-input">
-                    <input type="text" name="city{{ i }}" placeholder="Enter city name">
-                    <input type="text" name="state{{ i }}" placeholder="Enter state (optional)">
-                </div>
+            <div class="city-input">
+                <input type="text" name="city{{ i }}" placeholder="Enter city name">
+                <input type="text" name="state{{ i }}" placeholder="Enter state (optional)">
+            </div>
             {% endfor %}
             <button type="submit">Get Weather</button>
         </form>
-        {% if weather_data %}
+        <div id="weather-results">
+            {% if weather_data %}
             <div class="table-container">
                 <table class="weather-table">
                     <thead>
                         <tr>
                             <th>City</th>
                             <th>Current Weather</th>
-                            {% for i in range(5) %}
-                                <th>Forecast {{ i + 1 }}</th>
-                            {% endfor %}
+                            <th>Forecast 1</th>
+                            <th>Forecast 2</th>
+                            <th>Forecast 3</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for data in weather_data %}
-                            <tr>
-                                <td class="city-name"><strong>{{ data.current.city }}</strong></td>
-                                <td class="weather-cell">
-                                    <img src="http://openweathermap.org/img/wn/{{ data.current.icon }}@2x.png" alt="Weather icon">
-                                    <p class="temperature">{{ data.current.temperature }}°F</p>
-                                    <p class="description">{{ data.current.description }}</p>
-                                </td>
-                                {% for forecast in data.forecast %}
-                                    <td class="weather-cell">
-                                        <p class="datetime">{{ forecast.datetime }}</p>
-                                        <img src="http://openweathermap.org/img/wn/{{ forecast.icon }}@2x.png" alt="Weather icon">
-                                        <p class="temperature">{{ forecast.temperature }}°F</p>
-                                        <p class="description">{{ forecast.description }}</p>
-                                    </td>
-                                {% endfor %}
-                            </tr>
+                        <tr>
+                            <td class="city-name"><strong>{{ data.current.city }}</strong></td>
+                            <td class="weather-cell">
+                                <img src="http://openweathermap.org/img/wn/{{ data.current.icon }}@2x.png" alt="Weather icon">
+                                <p class="temperature">{{ data.current.temperature }}°F</p>
+                                <p class="description">{{ data.current.description }}</p>
+                            </td>
+                            {% for forecast in data.forecast[:3] %}
+                            <td class="weather-cell">
+                                <p class="datetime">{{ forecast.datetime }}</p>
+                                <img src="http://openweathermap.org/img/wn/{{ forecast.icon }}@2x.png" alt="Weather icon">
+                                <p class="temperature">{{ forecast.temperature }}°F</p>
+                                <p class="description">{{ forecast.description }}</p>
+                            </td>
+                            {% endfor %}
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
+    <script>
+        document.getElementById('weather-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const formData = new FormData(this);
+            fetch('/', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.text()).then(html => {
+                console.log('Fetched HTML:', html); // Debug: Log the fetched HTML
+                // Create a temporary div to parse the returned HTML
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+
+                // Extract the weather results from the temporary div
+                const weatherResults = tempDiv.querySelector('#weather-results').innerHTML;
+
+                // Update the weather results on the page
+                document.getElementById('weather-results').innerHTML = weatherResults;
+            }).catch(error => console.error('Error:', error));
+        });
+    </script>
 </body>
 </html>

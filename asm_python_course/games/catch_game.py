@@ -5,7 +5,7 @@ import random
 pygame.init()
 
 # Set up the game window
-width, height = 800, 600
+width, height = 600, 400
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Catch the Falling Objects")
 
@@ -48,10 +48,10 @@ while running:
     apple_y += apple_speed
 
     # Check for collision
-    if (basket_y < apple_y + apple_height and
-        basket_y + basket_height > apple_y and
-        basket_x < apple_x + apple_width and
-        basket_x + basket_width > apple_x):
+    if (basket_y < apple_y + apple_height
+            and basket_y + basket_height > apple_y
+            and basket_x < apple_x + apple_width
+            and basket_x + basket_width > apple_x):
         score += 1
         apple_x = random.randint(0, width - apple_width)
         apple_y = -apple_height
@@ -65,10 +65,12 @@ while running:
     screen.fill(white)
 
     # Draw the basket
-    pygame.draw.rect(screen, black, (basket_x, basket_y, basket_width, basket_height))
+    pygame.draw.rect(screen, black,
+                     (basket_x, basket_y, basket_width, basket_height))
 
     # Draw the apple
-    pygame.draw.rect(screen, red, (apple_x, apple_y, apple_width, apple_height))
+    pygame.draw.rect(screen, red,
+                     (apple_x, apple_y, apple_width, apple_height))
 
     # Draw the score
     score_text = font.render(f"Score: {score}", True, black)

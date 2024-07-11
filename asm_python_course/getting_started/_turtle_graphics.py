@@ -1,4 +1,3 @@
-
 '''
 Turtle Graphics Commands
 forward(distance): Moves the turtle forward by a specified distance.
@@ -13,15 +12,18 @@ circle(radius): Draws a circle with the given radius.
 '''
 
 import turtle
-
+'''
 ##################################################
 # Create a turtle object- what does this code draw?
+screen = turtle.Screen()
+screen.setup(300, 300)  # Set the window size to 800x600 pixels
 t = turtle.Turtle()
+t.goto(-20, -20)
 
 # Draw a square
 for _ in range(4):
-    t.forward(100)
-    t.right(90)
+  t.forward(100)
+  t.right(90)
 
 # Finish drawing
 turtle.done()
@@ -32,8 +34,8 @@ t = turtle.Turtle()
 
 # Draw a star
 for _ in range(5):
-    t.forward(100)
-    t.right(144)
+  t.forward(100)
+  t.right(144)
 
 # Finish drawing
 turtle.done()
@@ -43,8 +45,8 @@ t = turtle.Turtle()
 
 # Draw the square base of the house
 for _ in range(4):
-    t.forward(100)
-    t.right(90)
+  t.forward(100)
+  t.right(90)
 
 # Move the turtle to the top of the square
 t.right(90)
@@ -53,8 +55,8 @@ t.left(90)
 
 # Draw the roof
 for _ in range(3):
-    t.forward(100)
-    t.left(120)
+  t.forward(100)
+  t.left(120)
 
 # Finish drawing
 turtle.done()
@@ -64,22 +66,24 @@ t = turtle.Turtle()
 
 # Draw a spiral
 for i in range(50):
-    t.forward(i * 10)
-    t.right(144)
+  t.forward(i * 10)
+  t.right(144)
 
 # Finish drawing
 turtle.done()
 
+'''
 ##################################################
 # Set up a bigger window and trace a star.
 screen = turtle.Screen()
-screen.setup(400, 400)  # Set the window size to 800x600 pixels
+screen.setup(300, 300)  # Set the window size to 800x600 pixels
 
 t = turtle.Turtle()
+t.speed(2)
 
 # Move the turtle to the center before drawing
 t.penup()
-t.goto(-100, -10)  # Adjust this value to move the star up or down
+t.goto(-50, 0)  # Adjust this value to move the star up or down
 t.pendown()
 
 
@@ -102,4 +106,3 @@ t.color(0, 0, 0)
 mystar(50, False)
 
 turtle.done()
-

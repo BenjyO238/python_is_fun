@@ -1,5 +1,6 @@
 modules = ["python-3.11", "web"]
-run = "python asm_python_course/getting_started/0_hello_world.py"
+# run = "python asm_python_course/getting_started/0_hello_world.py"
+run = "python asm_python_course/games/catch_game.py"
 
 [nix]
 channel = "stable-24_05"

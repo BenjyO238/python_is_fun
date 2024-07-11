@@ -11,72 +11,85 @@
             font-size: 20px;
             margin: 2px;
         }
+        .display {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
     </style>
+    <script>
+        let currentInput = '';
+        let result = '';
+        let justCalculated = false;
+
+        function updateDisplay() {
+            document.getElementById('inputs').innerText = currentInput;
+            document.getElementById('result').innerText = result;
+        }
+
+        function appendValue(value) {
+            if (justCalculated) {
+                currentInput = '';
+                result = '';
+                justCalculated = false;
+            }
+            currentInput += value;
+            updateDisplay();
+        }
+
+        function clearInput() {
+            currentInput = '';
+            result = '';
+            justCalculated = false;
+            updateDisplay();
+        }
+
+        async function calculate() {
+            console.log("Calculating: " + currentInput); // Debugging step
+            const response = await fetch('/calculate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ expression: currentInput })
+            });
+            const resultData = await response.json();
+            console.log("Result: " + resultData.result); // Debugging step
+            result = resultData.result.toString();
+            justCalculated = true;
+            updateDisplay();
+        }
+    </script>
 </head>
 <body>
     <h1>Simple Calculator</h1>
+    <div class="display"><strong>Input:</strong> <span id="inputs"></span></div>
+    <div class="display"><strong>Result:</strong> <span id="result"></span></div>
     <div>
-        <form action="/clear" method="get">
-            <button type="submit" class="button">C</button>
-        </form>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="1"><button type="submit" class="button">1</button>
-        </form>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="2"><button type="submit" class="button">2</button>
-        </form>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="3"><button type="submit" class="button">3</button>
-        </form>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="+"><button type="submit" class="button">+</button>
-        </form>
+        <button onclick="appendValue('1')" class="button">1</button>
+        <button onclick="appendValue('2')" class="button">2</button>
+        <button onclick="appendValue('3')" class="button">3</button>
+        <button onclick="appendValue('+')" class="button">+</button>
     </div>
     <div>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="4"><button type="submit" class="button">4</button>
-        </form>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="5"><button type="submit" class="button">5</button>
-        </form>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="6"><button type="submit" class="button">6</button>
-        </form>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="-"><button type="submit" class="button">-</button>
-        </form>
+        <button onclick="appendValue('4')" class="button">4</button>
+        <button onclick="appendValue('5')" class="button">5</button>
+        <button onclick="appendValue('6')" class="button">6</button>
+        <button onclick="appendValue('-')" class="button">-</button>
     </div>
     <div>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="7"><button type="submit" class="button">7</button>
-        </form>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="8"><button type="submit" class="button">8</button>
-        </form>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="9"><button type="submit" class="button">9</button>
-        </form>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="*"><button type="submit" class="button">*</button>
-        </form>
+        <button onclick="appendValue('7')" class="button">7</button>
+        <button onclick="appendValue('8')" class="button">8</button>
+        <button onclick="appendValue('9')" class="button">9</button>
+        <button onclick="appendValue('*')" class="button">*</button>
     </div>
     <div>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="0"><button type="submit" class="button">0</button>
-        </form>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="."><button type="submit" class="button">.</button>
-        </form>
-        <form action="/calculate" method="post" style="display:inline;">
-            <button type="submit" class="button">=</button>
-        </form>
-        <form action="/input" method="post" style="display:inline;">
-            <input type="hidden" name="value" value="/"><button type="submit" class="button">/</button>
-        </form>
+        <button onclick="appendValue('0')" class="button">0</button>
+        <button onclick="appendValue('.')" class="button">.</button>
+        <button onclick="calculate()" class="button">=</button>
+        <button onclick="appendValue('/')" class="button">/</button>
     </div>
-    <h2>Input: {{ session.get('input', '') }}</h2>
-    {% if session.get('result') is not none %}
-    <h2>Result: {{ session.get('result') }}</h2>
-    {% endif %}
+    <div>
+        <button onclick="clearInput()" class="button">C</button>
+    </div>
 </body>
 </html>

@@ -1,8 +1,6 @@
 import pygame
 import os
 
-os.environ['SDL_VIDEODRIVER'] = 'dummy'
-
 i = 0
 matrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 # print(matrix)

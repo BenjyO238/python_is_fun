@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, render_template, request
 import requests
 from dotenv import load_dotenv
@@ -30,7 +31,7 @@ def get_weather_data(city, state, api_key):
         forecast_weather = []
         for entry in forecast_data['list'][:5]:  # Get forecast for the next 5 intervals (3-hour intervals)
             forecast_weather.append({
-                'datetime': entry['dt_txt'],
+                'datetime': datetime.strptime(entry['dt_txt'], '%Y-%m-%d %H:%M:%S').strftime('%d %H:%M'),
                 'temperature': entry['main']['temp'],
                 'description': entry['weather'][0]['description'],
                 'icon': entry['weather'][0]['icon']

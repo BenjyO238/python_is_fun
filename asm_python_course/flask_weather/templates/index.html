@@ -19,38 +19,39 @@
             <button type="submit">Get Weather</button>
         </form>
         {% if weather_data %}
-            <table class="weather-table">
-                <thead>
-                    <tr>
-                        <th>City</th>
-                        <th>Current Weather</th>
-                        <th colspan="5">Forecast</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for data in weather_data %}
+            <div class="table-container">
+                <table class="weather-table">
+                    <thead>
                         <tr>
-                            <td><strong>{{ data.current.city }}</strong></td>
-                            <td>
-                                <div>
-                                    <img src="http://openweathermap.org/img/wn/{{ data.current.icon }}@2x.png" alt="Weather icon">
-                                    <p>{{ data.current.temperature }}°F</p>
-                                    <p>{{ data.current.description }}</p>
-                                </div>
-                            </td>
-                            {% for forecast in data.forecast %}
-                            <td>
-                                <div>
-                                    <p>{{ forecast.datetime }}</p>
-                                    <img src="http://openweathermap.org/img/wn/{{ forecast.icon }}@2x.png" alt="Weather icon">
-                                    <p>{{ forecast.temperature }}°F - {{ forecast.description }}</p>
-                                </div>
-                            </td>
+                            <th>City</th>
+                            <th>Current Weather</th>
+                            {% for i in range(5) %}
+                                <th>Forecast {{ i + 1 }}</th>
                             {% endfor %}
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for data in weather_data %}
+                            <tr>
+                                <td class="city-name"><strong>{{ data.current.city }}</strong></td>
+                                <td class="weather-cell">
+                                    <img src="http://openweathermap.org/img/wn/{{ data.current.icon }}@2x.png" alt="Weather icon">
+                                    <p class="temperature">{{ data.current.temperature }}°F</p>
+                                    <p class="description">{{ data.current.description }}</p>
+                                </td>
+                                {% for forecast in data.forecast %}
+                                    <td class="weather-cell">
+                                        <p class="datetime">{{ forecast.datetime }}</p>
+                                        <img src="http://openweathermap.org/img/wn/{{ forecast.icon }}@2x.png" alt="Weather icon">
+                                        <p class="temperature">{{ forecast.temperature }}°F</p>
+                                        <p class="description">{{ forecast.description }}</p>
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% endif %}
     </div>
 </body>

@@ -84,19 +84,19 @@ def displayBoard(GAMEPICS, missedLetters, correctLetters, secretWord):
     print(GAMEPICS[len(missedLetters)])
     print()
 
-    print('Missed letters:', end=' ')
-    for letter in missedLetters:
-        print(letter, end=' ')
+    print('Missed letters:', ' '.join(missedLetters))
     print()
 
-    blanks = '_' * len(secretWord)
+    # Create a list of blanks
+    blanks = ['_' for _ in secretWord]
 
-    for i in range(len(secretWord)): # replace blanks with correctly guessed letters
-        if secretWord[i] in correctLetters:
-            blanks = blanks[:i] + secretWord[i] + blanks[i+1:]
+    # Replace blanks with correctly guessed letters
+    for i, letter in enumerate(secretWord):
+        if letter in correctLetters:
+            blanks[i] = letter
 
-    for letter in blanks: # show the secret word with spaces in between each letter
-        print(letter, end=' ')
+    # Show the secret word with spaces in between each letter
+    print(' '.join(blanks))
     print()
 
 def getGuess(alreadyGuessed):

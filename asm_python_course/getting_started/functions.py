@@ -137,8 +137,6 @@ for number, song in playlist:
     print(f"{number}. {song}")
 
 
-
-
 ## More Elaborate emperature Converter
 
 def convert_temperatures(temps, to_fahrenheit=True):

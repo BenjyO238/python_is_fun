@@ -8,11 +8,6 @@ fruits = ["apple", "banana", "cherry"]
 for fruit in fruits:
     print(fruit)
 
-# Creates a list of numbers from 1 to 5
-numbers = list(range(1, 6))
-print(numbers)
-# Output: [1, 2, 3, 4, 5]
-
 # Repeat an action 3 times
 for _ in range(3):
     print("Hello")

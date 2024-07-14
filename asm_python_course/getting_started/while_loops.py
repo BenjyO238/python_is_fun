@@ -2,8 +2,6 @@
 # as long as a certain condition is true.
 
 
-
-
 # Print numbers from 1 to 5
 i = 1
 while i <= 5:

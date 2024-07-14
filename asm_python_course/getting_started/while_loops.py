@@ -15,12 +15,14 @@ while i <= 5:
 # 4
 # 5
 
+
 # Counts from 1 to 5
 count = 1
 while count <= 5:
     print(count)
     count += 1
 # Output: 1, 2, 3, 4, 5
+
 
 # Continuously asks for input until the user types 'quit'. This is a very common pattern in games.
 while True:
@@ -38,6 +40,7 @@ while True:
 # Enter a command (type 'quit' to exit): quit
 # Exiting the program.
 
+
 # While with multiple conditions. Generates random numbers until getting one between 1 and 10.
 import random
 
@@ -49,6 +52,7 @@ while number < 1 or number > 10:
     print(f"Generated: {number}")
 
 print(f"Found a number between 1 and 10 in {attempts} attempts.")
+
 
 # Calculates the sum of numbers until the user enters 0
 sum = 0

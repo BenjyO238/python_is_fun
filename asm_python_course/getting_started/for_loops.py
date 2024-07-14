@@ -52,8 +52,8 @@ for i in range(9, 0, -2):
     print(i)
 # Output: 9, 7, 5, 3, 1
 
+# Print every third number from 0 to 9
 numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-# Print every third number
 for i in range(0, len(numbers), 3):
     print(numbers[i])
 # Output: 0, 3, 6, 9

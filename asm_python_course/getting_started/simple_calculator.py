@@ -18,11 +18,18 @@ def divide(x, y):
         return "Error! Division by zero."
     return x / y
 
+def mod(x, y):
+    """This function divides two numbers."""
+    if y == 0:
+        return "Error! Division by zero."
+    return x % y
+
+
 def main():
     print("Welcome to the Simple Calculator!")
     print("Enter your calculation in the form: number operation number")
     print("For example: 2 + 3 or 5 * 6")
-    print("Available operations: +, -, *, /")
+    print("Available operations: +, -, *, /, %")
 
     while True:
         # Take input from the user
@@ -53,8 +60,10 @@ def main():
             result = multiply(num1, num2)
         elif operation == '/':
             result = divide(num1, num2)
+        elif operation == '%':
+            result = mod(num1, num2)
         else:
-            print("Invalid operation. Please use +, -, *, or /.")
+            print("Invalid operation. Please use +, -, *, / or %.")
             continue
 
         # Print the result

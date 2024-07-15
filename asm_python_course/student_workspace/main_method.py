@@ -1,14 +1,19 @@
 import random
 
-sample_text = "The quick brown fox jumps over the lazy dog."
-sample_list = ["apple", "banana", "cherry", "orange", "kiwi", "melon", "grape"]
 
 
-
-
-
+# get the area of a rectangle
+def get_area(length, width):
+    return length * width
 
 
 
 if __name__ == '__main__':
-    print("Hello, World!")
+    length_string = input('Enter the length of a rectangle: ')
+    width_string = input('Enter the width of a rectangle: ')
+
+    length = int(length_string)
+    width = int(width_string)
+
+    print('The area of the rectangle is', get_area(length, width))
+

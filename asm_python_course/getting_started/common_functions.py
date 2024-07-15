@@ -9,6 +9,16 @@ print("The answer is:", 42)
 name = input("Enter your name: ")
 print("Hello,", name)
 
+# Converting (casting) data types
+x = int("10")
+print(x + 5)  # Output: 15
+
+y = float("3.14")
+print(y * 2)  # Output: 6.28
+
+z = str(42)
+print("The answer is " + z)  # Output: The answer is 42
+
 # Input with type conversion
 age = int(input("Enter your age: "))
 print("Next year, you will be", age + 1, "years old.")
@@ -34,17 +44,6 @@ print(type(x))  # Output: <class 'int'>
 
 y = "Hello"
 print(type(y))  # Output: <class 'str'>
-
-
-# Converting (casting) data types
-x = int("10")
-print(x + 5)  # Output: 15
-
-y = float("3.14")
-print(y * 2)  # Output: 6.28
-
-z = str(42)
-print("The answer is " + z)  # Output: The answer is 42
 
 
 # Aggregate math functions

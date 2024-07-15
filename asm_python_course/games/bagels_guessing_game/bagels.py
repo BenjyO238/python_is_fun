@@ -1,4 +1,5 @@
 import random
+
 def getSecretNum(numDigits):
     # Returns a string that is numDigits long, made up of unique random digits.
     numbers = list(range(10))
@@ -45,7 +46,7 @@ def playAgain():
 NUMDIGITS = 2
 MAXGUESS = 10
 
-print('I am thinking of a %s-digit number. Try to guess what it is.' % (NUMDIGITS))
+print(f'I am thinking of a {NUMDIGITS}-digit number. Try to guess what it is.')
 print('Here are some clues:')
 print('When I say:    That means:')
 print('  Pico         One digit is correct but in the wrong position.')
@@ -54,13 +55,13 @@ print('  Bagels       No digit is correct.')
 
 while True:
     secretNum = getSecretNum(NUMDIGITS)
-    print('I have thought up a number. You have %s guesses to get it.' % (MAXGUESS))
+    print(f'I have thought up a number. You have {MAXGUESS} guesses to get it.')
 
     numGuesses = 1
     while numGuesses <= MAXGUESS:
         guess = ''
         while len(guess) != NUMDIGITS or not isOnlyDigits(guess):
-            print('Guess #%s: ' % (numGuesses))
+            print(f'Guess #{numGuesses}: ')
             guess = input()
 
         clue = getClues(guess, secretNum)
@@ -70,7 +71,7 @@ while True:
         if guess == secretNum:
             break
         if numGuesses > MAXGUESS:
-            print('You ran out of guesses. The answer was %s.' % (secretNum))
+            print(f'You ran out of guesses. The answer was {secretNum}.')
 
     if not playAgain():
         break

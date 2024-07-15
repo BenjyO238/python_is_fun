@@ -1,5 +1,5 @@
 modules = ["python-3.11", "web"]
-run = "python asm_python_course/games/catch_game.py"
+run = "python asm_python_course/student_workspace/no_main_method.py"
 
 [nix]
 channel = "stable-24_05"

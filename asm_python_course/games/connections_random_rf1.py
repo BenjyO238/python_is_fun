@@ -62,6 +62,7 @@ class ConnectionsGame:
                 self.game_ended = True
         else:
             self.attempts -= 1
+            print("Incorrect. You have", self.attempts, "attempts left.")
             self.selected_words = []
             if self.attempts == 0:
                 self.game_end_message = "Sorry, you lose!"

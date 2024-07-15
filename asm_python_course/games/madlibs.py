@@ -2,11 +2,26 @@ import random
 import re
 
 madlib_templates = {
-    1: "The {adj1} {noun1} {verb1} over the {adj2} {noun2}. Suddenly, a {adj3} {noun3} {verb2} {adverb}, causing everyone to {verb3}.",
-    2: "In a {adj1} {noun1}, scientists discovered a {adj2} {noun2} that could {verb1}. They decided to {verb2} it {adverb}, hoping to {verb3} the world's {noun3} problem.",
-    3: "Captain {name} stood on the {adj1} deck of the {noun1}. With a {adj2} voice, they ordered the crew to {verb1} the {noun2}. As they sailed into the {adj3} sunset, everyone felt {adverb} {adj4}.",
-    4: "The {adj1} chef {verb1} into the kitchen, ready to create a {adj2} dish. They mixed {noun1} with {noun2} and added a pinch of {adj3} {noun3}. The result was so {adj4} that it made the food critics {verb2} in delight.",
-    5: "During the {adj1} {noun1} championship, the underdog team {verb1} their way to victory. Their {adj2} strategy involved using a secret {noun2} to {verb2} their opponents. In the end, they celebrated by {verb3} {adverb} around the {noun3}."
+    1: '''
+    The {adj1} {noun1} {verb1} over the {adj2} {noun2}. 
+    Suddenly, a {adj3} {noun3} {verb2} {adverb}, 
+    causing everyone to {verb3}.''',
+    2: '''
+    In a {adj1} {noun1}, scientists discovered a {adj2} {noun2} 
+    that could {verb1}. They decided to {verb2} it {adverb}, 
+    hoping to {verb3} the world's {noun3} problem.''',
+    3: '''
+    Captain {name} stood on the {adj1} deck of the {noun1}. 
+    With a {adj2} voice, they ordered the crew to {verb1} the {noun2}. 
+    As they sailed into the {adj3} sunset, everyone felt {adverb} {adj4}.''',
+    4: '''
+    The {adj1} chef {verb1} into the kitchen, ready to create a {adj2} dish. 
+    They mixed {noun1} with {noun2} and added a pinch of {adj3} {noun3}. 
+    The result was so {adj4} that it made the food critics {verb2} in delight.''',
+    5: '''
+    During the {adj1} {noun1} championship, the underdog team {verb1} their way to victory. 
+    Their {adj2} strategy involved using a secret {noun2} to {verb2} their opponents. 
+    In the end, they celebrated by {verb3} {adverb} around the {noun3}.'''
 }
 
 

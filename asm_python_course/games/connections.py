@@ -75,6 +75,7 @@ def check_word_selection(selected_indices):
             game_ended = True
     else:
         attempts -= 1
+        print("Incorrect. You have", attempts, "attempts left.")
         selected_words = []
         if attempts == 0:
             game_end_message = "Sorry, you lose!"

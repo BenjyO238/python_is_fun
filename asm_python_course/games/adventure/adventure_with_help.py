@@ -74,14 +74,28 @@ locations = {
     }
 }
 
-
-
 # Define the starting location
 current_location = 'field'
 
 # Define the maximum items a player can carry
 max_items = 3
 inventory = []
+
+# Helper function to find path
+def find_path(start, end, path=[]):
+    path = path + [start]
+    if start == end:
+        return path
+    if start not in locations:
+        return None
+    for direction in ['north', 'east', 'south', 'west']:
+        if locations[start][direction]:
+            next_location = locations[start][direction]
+            if next_location not in path:
+                new_path = find_path(next_location, end, path)
+                if new_path:
+                    return [start] + [direction] + new_path
+    return None
 
 # Main game loop
 while True:
@@ -104,15 +118,12 @@ while True:
 
     # Handle the pick up command
     elif command.startswith('pick up '):
-        item = command[8:].strip()
-        print(f"Attempting to pick up: {item}")  # Debug print
-        print(f"Items available at this location: {locations[current_location]['items']}")  # Debug print
+        item = command[8:]
         if item in locations[current_location]['items']:
             if len(inventory) < max_items:
                 inventory.append(item)
                 locations[current_location]['items'].remove(item)
                 print(f"You have picked up the {item}.")
-                print(f"Current inventory: {inventory}")  # Debug print
                 if item == 'time machine':
                     print("Congratulations! You have found the time machine and won the game!")
                     break
@@ -134,6 +145,24 @@ while True:
     # Handle the inventory command
     elif command == 'inventory':
         print("You are carrying:", ', '.join(inventory))
+
+    # Handle the map to home command
+    elif command == 'map to home':
+        path = find_path(current_location, 'field')
+        if path:
+            directions = [step for step in path if step in ['north', 'east', 'south', 'west']]
+            print("Directions to home:", ' --> '.join(directions))
+        else:
+            print("No path to home found.")
+
+    # Handle the map to end command
+    elif command == 'map to end':
+        path = find_path(current_location, 'time_machine_room')
+        if path:
+            directions = [step for step in path if step in ['north', 'east', 'south', 'west']]
+            print("Directions to the end:", ' --> '.join(directions))
+        else:
+            print("No path to the end found.")
 
     # Handle invalid commands
     else:

@@ -13,16 +13,16 @@ pygame.display.set_caption('Falling Tiles Game')
 font = pygame.font.Font(None, 36)
 score = 0
 
-# Define the colors and their speeds
+# Define the colors, speeds, and scores
 colors = {
-    (255, 0, 0): 3,  # Red tiles fall at speed 3
-    (0, 255, 0): 5,  # Green tiles fall at speed 5
-    (0, 0, 255): 7,  # Blue tiles fall at speed 7
+    (255, 0, 0): (3, 1),  # Red tiles: speed 3, score 1
+    (0, 255, 0): (5, 2),  # Green tiles: speed 5, score 2
+    (0, 0, 255): (7, 5),  # Blue tiles: speed 7, score 5
 }
 
 # Define the Tile class
 class Tile(pygame.sprite.Sprite):
-    def __init__(self, color, speed):
+    def __init__(self, color, speed, tile_score):
         super().__init__()
         self.image = pygame.Surface((20, 20))
         self.image.fill(color)
@@ -30,6 +30,7 @@ class Tile(pygame.sprite.Sprite):
         self.rect.x = random.randint(0, 380)
         self.rect.y = -20  # Start above the screen
         self.speed = speed
+        self.tile_score = tile_score
 
     def update(self):
         self.rect.y += self.speed
@@ -68,10 +69,12 @@ while True:
             pygame.quit()
             sys.exit()
 
-    # Add new tiles at random intervals
-    if random.randint(1, 20) == 1:
-        color, speed = random.choice(list(colors.items()))
-        tile = Tile(color, speed)
+    # Add new tiles at random intervals with adjusted probabilities
+    if random.randint(1, 30) == 1:
+        choice = random.choices(list(colors.items()), weights=[7, 5, 2])[0]
+        color = choice[0]
+        speed, tile_score = choice[1]
+        tile = Tile(color, speed, tile_score)
         tiles.add(tile)
         sprites.add(tile)
 
@@ -81,7 +84,7 @@ while True:
     # Check for collisions and update score
     for tile in tiles:
         if player.rect.colliderect(tile.rect):
-            score += 1
+            score += tile.tile_score
             tile.kill()
 
     # Fill the screen with white

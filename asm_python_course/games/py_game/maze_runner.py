@@ -1,4 +1,5 @@
 import pygame
+import random
 
 # Initialize Pygame
 pygame.init()
@@ -13,6 +14,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
 
 # Player properties
 player_size = 20
@@ -23,6 +25,8 @@ player_speed = 2
 # Game properties
 score = 0
 game_won = False
+point_message = ""
+point_message_timer = 0
 
 # Maze properties
 cell_size = 30
@@ -87,6 +91,8 @@ while running:
         if not check_collision(new_x, new_y):
             if (player_x // cell_size, player_y // cell_size) != (new_x // cell_size, new_y // cell_size):
                 score += 1
+                point_message = f"+1 point! Total: {score}"
+                point_message_timer = 60  # Display for 60 frames (1 second at 60 FPS)
             player_x, player_y = new_x, new_y
 
         # Check for win condition
@@ -111,10 +117,16 @@ while running:
     score_text = font.render(f"Score: {score}", True, BLACK)
     screen.blit(score_text, (10, 10))
 
+    # Draw point message
+    if point_message_timer > 0:
+        point_text = font.render(point_message, True, BLUE)
+        screen.blit(point_text, (WIDTH // 2 - 100, 10))
+        point_message_timer -= 1
+
     # Draw win message
     if game_won:
-        win_text = font.render("You Win!", True, GREEN)
-        screen.blit(win_text, (WIDTH // 2 - 50, HEIGHT // 2 - 18))
+        win_text = font.render("You beat the maze!", True, GREEN)
+        screen.blit(win_text, (WIDTH // 2 - 100, HEIGHT // 2 - 18))
 
     # Update the display
     pygame.display.flip()

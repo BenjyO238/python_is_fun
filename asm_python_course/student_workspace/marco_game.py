@@ -33,7 +33,7 @@ else:
   print("ok your loss not playing.")
   exit()
 
-print("you are walking to the gates of hell and you go through")
+print("you are walking to the gates of darkness and you go through")
 time.sleep(3)
 print("as you walk some demon wants to battle you! you have to fight him!")
 time.sleep(3)

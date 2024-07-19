@@ -29,10 +29,10 @@ ENLARGED_SHAPE_SIZE = 60  # Enlarged size
 
 # Shape positions (spread out horizontally)
 shape_positions = [
-    (SCREEN_WIDTH - 320, 20, RED),
-    (SCREEN_WIDTH - 240, 20, GREEN),
-    (SCREEN_WIDTH - 160, 20, BLUE),
-    (SCREEN_WIDTH - 80, 20, YELLOW)
+    (SCREEN_WIDTH - 320, 20, RED, 'L'),
+    (SCREEN_WIDTH - 240, 20, GREEN, 'D'),
+    (SCREEN_WIDTH - 160, 20, BLUE, 'U'),
+    (SCREEN_WIDTH - 80, 20, YELLOW, 'R')
 ]
 
 # Arrow columns (aligned with shapes)
@@ -63,6 +63,7 @@ key_press_state = [False, False, False, False]  # State for left, down, up, righ
 # Score
 score = 0
 font = pygame.font.Font(None, 36)
+letter_font = pygame.font.Font(None, 36)
 
 # Main game loop
 running = True
@@ -108,7 +109,7 @@ while running:
     screen.fill(WHITE)
 
     # Draw shapes on the top
-    for i, (x, y, color) in enumerate(shape_positions):
+    for i, (x, y, color, letter) in enumerate(shape_positions):
         enlarged = False
         # Check collision
         for arrow in arrows:
@@ -123,6 +124,11 @@ while running:
         shape_x = x - (size - SHAPE_WIDTH) // 2
         shape_y = y - (size - SHAPE_HEIGHT) // 2
         pygame.draw.rect(screen, color, (shape_x, shape_y, size, size))
+
+        # Draw the letter
+        text = letter_font.render(letter, True, BLACK)
+        text_rect = text.get_rect(center=(shape_x + size // 2, shape_y + size // 2))
+        screen.blit(text, text_rect)
 
     # Draw arrows
     for arrow in arrows:

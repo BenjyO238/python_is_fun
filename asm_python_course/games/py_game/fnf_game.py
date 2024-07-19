@@ -21,16 +21,25 @@ ARROW_WIDTH = 20
 ARROW_HEIGHT = 20
 ARROW_SPEED = 2  # Slower speed
 
-# Shape positions
+# Shape properties
+SHAPE_WIDTH = 40
+SHAPE_HEIGHT = 40
+
+# Shape positions (spread out horizontally)
 shape_positions = [
-    (SCREEN_WIDTH - 160, 20, RED),
-    (SCREEN_WIDTH - 120, 20, GREEN),
-    (SCREEN_WIDTH - 80, 20, BLUE),
-    (SCREEN_WIDTH - 40, 20, YELLOW)
+    (SCREEN_WIDTH - 320, 20, RED),
+    (SCREEN_WIDTH - 240, 20, GREEN),
+    (SCREEN_WIDTH - 160, 20, BLUE),
+    (SCREEN_WIDTH - 80, 20, YELLOW)
 ]
 
 # Arrow columns (aligned with shapes)
-arrow_columns = [SCREEN_WIDTH - 160, SCREEN_WIDTH - 120, SCREEN_WIDTH - 80, SCREEN_WIDTH - 40]
+arrow_columns = [
+    SCREEN_WIDTH - 320 + SHAPE_WIDTH // 2,
+    SCREEN_WIDTH - 240 + SHAPE_WIDTH // 2,
+    SCREEN_WIDTH - 160 + SHAPE_WIDTH // 2,
+    SCREEN_WIDTH - 80 + SHAPE_WIDTH // 2
+]
 
 # Set up the display
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -73,7 +82,7 @@ while running:
 
     # Draw shapes on the top
     for x, y, color in shape_positions:
-        pygame.draw.rect(screen, color, (x, y, ARROW_WIDTH, ARROW_HEIGHT))
+        pygame.draw.rect(screen, color, (x, y, SHAPE_WIDTH, SHAPE_HEIGHT))
 
     # Draw arrows
     for arrow in arrows:

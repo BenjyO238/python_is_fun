@@ -15,6 +15,7 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
+BLACK = (0, 0, 0)
 
 # Arrow properties
 ARROW_WIDTH = 20
@@ -58,7 +59,10 @@ arrow_interval = 30  # Adjust this value to control the frequency of new arrows
 
 # Key press state
 key_press_state = [False, False, False, False]  # State for left, down, up, right keys
-collision_detected = [False, False, False, False]  # State for collision detection
+
+# Score
+score = 0
+font = pygame.font.Font(None, 36)
 
 # Main game loop
 running = True
@@ -100,9 +104,6 @@ while running:
         new_arrow = [column, SCREEN_HEIGHT - 20]
         arrows.append(new_arrow)
 
-    # Remove arrows that are off the screen
-    arrows = [arrow for arrow in arrows if arrow[1] > -ARROW_HEIGHT]
-
     # Clear screen
     screen.fill(WHITE)
 
@@ -114,6 +115,8 @@ while running:
             if x <= arrow[0] - ARROW_WIDTH // 2 <= x + SHAPE_WIDTH and y <= arrow[1] <= y + SHAPE_HEIGHT:
                 if key_press_state[i]:
                     enlarged = True
+                    arrows.remove(arrow)
+                    score += 1
                     break
 
         size = ENLARGED_SHAPE_SIZE if enlarged else SHAPE_WIDTH
@@ -128,6 +131,10 @@ while running:
             (arrow[0] - ARROW_WIDTH // 2, arrow[1] + ARROW_HEIGHT),
             (arrow[0] + ARROW_WIDTH // 2, arrow[1] + ARROW_HEIGHT)
         ])
+
+    # Draw score
+    score_text = font.render(f"Score: {score}", True, BLACK)
+    screen.blit(score_text, (10, 10))
 
     # Update the display
     pygame.display.flip()

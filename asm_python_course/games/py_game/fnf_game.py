@@ -24,6 +24,7 @@ ARROW_SPEED = 2  # Slower speed
 # Shape properties
 SHAPE_WIDTH = 40
 SHAPE_HEIGHT = 40
+ENLARGED_SHAPE_SIZE = 60  # Enlarged size
 
 # Shape positions (spread out horizontally)
 shape_positions = [
@@ -55,12 +56,37 @@ clock = pygame.time.Clock()
 arrow_timer = 0
 arrow_interval = 30  # Adjust this value to control the frequency of new arrows
 
+# Key press state
+key_press_state = [False, False, False, False]  # State for left, down, up, right keys
+collision_detected = [False, False, False, False]  # State for collision detection
+
 # Main game loop
 running = True
 while running:
+    current_time = pygame.time.get_ticks()
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                key_press_state[0] = True
+            elif event.key == pygame.K_DOWN:
+                key_press_state[1] = True
+            elif event.key == pygame.K_UP:
+                key_press_state[2] = True
+            elif event.key == pygame.K_RIGHT:
+                key_press_state[3] = True
+
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT:
+                key_press_state[0] = False
+            elif event.key == pygame.K_DOWN:
+                key_press_state[1] = False
+            elif event.key == pygame.K_UP:
+                key_press_state[2] = False
+            elif event.key == pygame.K_RIGHT:
+                key_press_state[3] = False
 
     # Move arrows up
     for arrow in arrows:
@@ -81,8 +107,19 @@ while running:
     screen.fill(WHITE)
 
     # Draw shapes on the top
-    for x, y, color in shape_positions:
-        pygame.draw.rect(screen, color, (x, y, SHAPE_WIDTH, SHAPE_HEIGHT))
+    for i, (x, y, color) in enumerate(shape_positions):
+        enlarged = False
+        # Check collision
+        for arrow in arrows:
+            if x <= arrow[0] - ARROW_WIDTH // 2 <= x + SHAPE_WIDTH and y <= arrow[1] <= y + SHAPE_HEIGHT:
+                if key_press_state[i]:
+                    enlarged = True
+                    break
+
+        size = ENLARGED_SHAPE_SIZE if enlarged else SHAPE_WIDTH
+        shape_x = x - (size - SHAPE_WIDTH) // 2
+        shape_y = y - (size - SHAPE_HEIGHT) // 2
+        pygame.draw.rect(screen, color, (shape_x, shape_y, size, size))
 
     # Draw arrows
     for arrow in arrows:

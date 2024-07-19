@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 
 # Initialize Pygame
 pygame.init()
@@ -18,7 +19,7 @@ YELLOW = (255, 255, 0)
 # Arrow properties
 ARROW_WIDTH = 20
 ARROW_HEIGHT = 20
-ARROW_SPEED = 5
+ARROW_SPEED = 2  # Slower speed
 
 # Shape positions
 shape_positions = [
@@ -41,6 +42,10 @@ arrows = []
 # Clock for controlling frame rate
 clock = pygame.time.Clock()
 
+# Arrow generation timer
+arrow_timer = 0
+arrow_interval = 30  # Adjust this value to control the frequency of new arrows
+
 # Main game loop
 running = True
 while running:
@@ -52,11 +57,13 @@ while running:
     for arrow in arrows:
         arrow[1] -= ARROW_SPEED
 
-    # Add new arrows periodically
-    if len(arrows) == 0 or arrows[-1][1] <= SCREEN_HEIGHT - 60:
-        for column in arrow_columns:
-            new_arrow = [column, SCREEN_HEIGHT - 20]
-            arrows.append(new_arrow)
+    # Add new arrow periodically in a random column
+    arrow_timer += 1
+    if arrow_timer >= arrow_interval:
+        arrow_timer = 0
+        column = random.choice(arrow_columns)
+        new_arrow = [column, SCREEN_HEIGHT - 20]
+        arrows.append(new_arrow)
 
     # Remove arrows that are off the screen
     arrows = [arrow for arrow in arrows if arrow[1] > -ARROW_HEIGHT]
